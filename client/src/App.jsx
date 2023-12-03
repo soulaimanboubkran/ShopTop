@@ -5,6 +5,7 @@ import './app.scss'
 import Home from "./pages/Home/Home";
 import Products from "./pages/Products/Products";
 import Product from "./pages/Product/Product";
+
 const Layout=()=>{
   return(
     <div className="app">
