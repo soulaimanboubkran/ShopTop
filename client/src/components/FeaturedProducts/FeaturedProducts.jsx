@@ -6,23 +6,22 @@ import axios from 'axios'
 const FeaturedProducts = () => {
 
 
-const [Products,setProducts]=useState([])
+const [products,setProducts]=useState([])
 
 useEffect(()=>{
 const fetchData=async()=>{
    try {
    
     const res = await axios.get(
-      import.meta.env.VITE_API_URL + '/products',
+      import.meta.env.VITE_API_URL +  `/products?populate=*`,
     {
       headers: {
         Authorization: "bearer " + import.meta.env.VITE_SHOPApi,
       },
       
     })
-    
- console.log(res.data.data)
-    
+    setProducts(res.data.data);
+   
   } catch (error) {
     console.log(error)
   }
@@ -32,7 +31,7 @@ fetchData()
 
 },[])
 
-
+console.log(products)
   return (
     <div className="featuredProducts">
       <div className="top">
@@ -46,7 +45,9 @@ fetchData()
         </p>
       </div>
       <div className="bottom">
-      
+      {products.map((item)=>(
+        <Card item={item} key={item.id}/>
+      ))}
       </div>
     </div>
   );
