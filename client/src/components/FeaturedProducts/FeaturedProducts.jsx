@@ -13,7 +13,7 @@ const fetchData=async()=>{
    try {
    
     const res = await axios.get(
-      import.meta.env.VITE_API_URL + '/categories',
+      import.meta.env.VITE_API_URL + '/products',
     {
       headers: {
         Authorization: "bearer " + import.meta.env.VITE_SHOPApi,
