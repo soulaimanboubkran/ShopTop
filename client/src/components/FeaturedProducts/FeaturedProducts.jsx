@@ -1,41 +1,19 @@
-import React, { useEffect, useState } from "react";
-import "./FeaturedProducts.scss";
+import React from "react";
 import Card from "../Card/Card";
-import axios from 'axios'
+import "./FeaturedProducts.scss";
+import useFetch from "../../hooks/useFetch";
 
-const FeaturedProducts = () => {
-
-
-const [products,setProducts]=useState([])
-
-useEffect(()=>{
-const fetchData=async()=>{
-   try {
-   
-    const res = await axios.get(
-      import.meta.env.VITE_API_URL +  `/products?populate=*`,
-    {
-      headers: {
-        Authorization: "bearer " + import.meta.env.VITE_SHOPApi,
-      },
-      
-    })
-    setProducts(res.data.data);
-   
-  } catch (error) {
-    console.log(error)
-  }
-}
-fetchData()
+const FeaturedProducts = ({ types }) => {
+  const { data, loading, error ,url} = useFetch(
+    `/products?populate=*&[filters][types][$eq]=${types}`
+  );
+ console.log(url)
 
 
-},[])
-
-console.log(products)
   return (
     <div className="featuredProducts">
       <div className="top">
-        <h1>type products</h1>
+        <h1>{types} products</h1>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Quis ipsum
@@ -45,9 +23,11 @@ console.log(products)
         </p>
       </div>
       <div className="bottom">
-      {products.map((item)=>(
-        <Card item={item} key={item.id}/>
-      ))}
+        {error
+          ? "Something went wrong!"
+          : loading
+          ? "loading"
+          : data?.map((item) => <Card item={item} key={item.id} />)}
       </div>
     </div>
   );

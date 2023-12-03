@@ -702,7 +702,6 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'manyToMany',
       'api::sub-category.sub-category'
     >;
-    type: Attribute.Enumeration<['normal', 'featured', 'trending']>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -749,7 +748,8 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'manyToMany',
       'api::sub-category.sub-category'
     >;
-    type: Attribute.Enumeration<['normal', 'featured', 'trending']>;
+    types: Attribute.Enumeration<['normal', 'featured', 'trending']> &
+      Attribute.DefaultTo<'normal'>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
