@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./Product.scss";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -6,52 +6,44 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BalanceIcon from "@mui/icons-material/Balance";
 
 import { useParams } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 
 const Product = () => {
   const id = useParams().id;
-  const [selectedImg,setSelectedImg]= useState(0);
+  const [selectedImg,setSelectedImg]= useState("img");
   const [quantity,setQuantity]= useState(1)
-  const images = [
-    'https://images.unsplash.com/photo-1701244450186-cf76378d4c65?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDl8dG93SlpGc2twR2d8fGVufDB8fHx8fA%3D%3D',
-    'https://images.unsplash.com/photo-1701084412727-1f3e01088a5f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDE2fHRvd0paRnNrcEdnfHxlbnwwfHx8fHw%3D',
-    'https://images.unsplash.com/photo-1698778755371-c98c0f38ef74?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDk4fHRvd0paRnNrcEdnfHxlbnwwfHx8fHw%3D',
-    
-  ]
+ const {data,loading,error} =useFetch(
+  `/products/${id}?populate=*`
+ )
 
+
+ const imgSrc = data?.attributes?.[selectedImg]?.data?.attributes?.url;
   return (
     <div className="product">
-   
+   {loading ?'loading...':(<>
           <div className="left">
             <div className="images">
               <img
-                src={images[0]}
+                src={import.meta.env.VITE_API_UP_URL + data?.attributes?.img?.data?.attributes?.url}
                 alt=""
-              onClick={e=>setSelectedImg(0)}
+              onClick={(e)=>setSelectedImg("img")}
               />
               <img
-                src={images[1]}
+                src={import.meta.env.VITE_API_UP_URL + data?.attributes?.img2?.data?.attributes?.url}
                 alt=""
-                onClick={e=>setSelectedImg(1)}
+                onClick={(e)=>setSelectedImg("img2")}
               />
-              <img
-                src={images[2]}
-                alt=""
-                onClick={e=>setSelectedImg(2)}
-              />
+             
             </div>
             <div className="mainImg">
-              <img
-                src={images[selectedImg]}
-                alt=""
-             
-              />
+            <img src={import.meta.env.VITE_API_UP_URL + imgSrc} alt="" />
             </div>
           </div>
           <div className="right">
-            <h1>Title</h1>
-            <span className="price">Price</span>
-            <p>Description</p>
+            <h1>{data?.attributes?.title}</h1>
+            <span className="price">{data?.attributes?.price}</span>
+            <p>{data?.attributes?.desc}</p>
             <div className="quantity">
               <button
                onClick={()=>setQuantity((prev)=>(prev === 1 ? 1 : prev-1))}
@@ -76,9 +68,15 @@ const Product = () => {
               </div>
             </div>
             <div className="info">
-              <span>Vendor: Polo</span>
-              <span>Product Type: T-Shirt</span>
-              <span>Tag: T-Shirt, Women, Top</span>
+              <span>Vendor: the client</span>
+             
+             
+              <h3 >Product Type: {data?.attributes?.sub_categories?.data?.[0]?.attributes?.title ?? "Product"}</h3>
+              <h3>
+                Tag: {data?.attributes?.sub_categories?.data?.[0]?.attributes?.title ?? "Product"}, 
+                {data?.attributes?.categories?.data?.[0]?.attributes?.title ?? "Any"},  
+                {data?.attributes?.types}
+              </h3>
             </div>
             <hr />
             <div className="info">
@@ -89,7 +87,7 @@ const Product = () => {
               <span>FAQ</span>
             </div>
           </div>
-     
+          </>) }
     
     </div>
   );
