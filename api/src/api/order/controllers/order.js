@@ -11,19 +11,19 @@ module.exports = createCoreController("api::order.order",({strapi})=>({
         const {products} = ctx.request.body;
         try {
             const lineItems= await Promise.all(products.map(async(product)=>{
-                const item= await strapi.service("api:product.product").findOne(product.id);
+                const item= await strapi.service("api::product.product").findOne(product.id);
 
-            return {
-                price_data:{
-                    currency:"usd",
-                    product_data:{
-                        name:item.title,
-                    },
-                    unit_amount:Math.round(item.price*100),
-
-                },
-                quantity:product.quantity,
-            };
+                    return {
+                        price_data:{
+                            currency:"usd",
+                            product_data:{
+                                name:item.title,
+                            },
+                            unit_amount:Math.round(item.price*100),
+        
+                        },
+                        quantity:product.quantity,
+                    };
             }));
 
         const session =await stripe.checkout.sessions.create({
