@@ -8,7 +8,7 @@ import {loadStripe} from '@stripe/stripe-js';
 import { makeRequest } from "../../makeRequest";
 const Cart = () => {
    const products = useSelector(state=>state.cart.products)
-   
+
   const dispatch =useDispatch()
    const totlaPrice=()=>{
     let total = 0 ;
@@ -18,8 +18,8 @@ total += item.quantity * item.price;
     return total.toFixed(2);
    }
 
-   const stripePromise = loadStripe("pk_test_51OJl67ACOQwaaGDAMGAKMg2ZMJ2sSVRGwjStp7vfHQzJFLJCYyKiS7xKYZ0lS3No9aERapiZIgg1CFgLEJMvXHMY00qY2ZfTnz");
-
+   const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PROMISE);
+console.log(import.meta.env.VITE_STRIPE_PROMISE)
 
    const handlePayment = async () => {
     try {
