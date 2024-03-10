@@ -1,26 +1,55 @@
 .featuredProducts {
-    margin: 100px 200px;
-  
-    .top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 50px;
-  
-      h1 {
-        flex: 2;
-        text-transform: capitalize;
-      }
-  
-      p{
-        flex:3;
-        color:gray
-      }
+  margin: 50px 20px; /* Adjusted margin for smaller screens */
+
+  .top {
+    display: flex;
+    flex-direction: column; /* Stack items vertically on smaller screens */
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Reduced margin for smaller screens */
+    flex-wrap: wrap;
+
+
+    h1 {
+      flex: 1;
+      text-transform: capitalize;
+      margin-bottom: 10px; /* Added space between h1 and p on smaller screens */
     }
-  
-    .bottom{
-      display: flex;
-      justify-content: center;
-      gap: 50px;
+
+    p {
+      flex: 1;
+      color: gray;
+      text-align: center; /* Center text on smaller screens */
     }
   }
+
+  .bottom {
+    display: flex;
+    flex-direction: column; /* Stack cards vertically on smaller screens */
+    align-items: center;
+    gap: 20px; /* Reduced gap between cards for smaller screens */
+  }
+
+  /* Media queries for responsiveness */
+  @media screen and (min-width: 768px) {
+    .featuredProducts {
+      margin: 100px 200px;
+    }
+
+    .top {
+      flex-direction: row; /* Reset to horizontal layout on larger screens */
+
+      h1 {
+        margin-bottom: 0; /* Reset margin for larger screens */
+      }
+
+      p {
+        text-align: left; /* Reset text alignment for larger screens */
+      }
+    }
+
+    .bottom {
+      flex-direction: row; /* Reset to horizontal layout on larger screens */
+    }
+  }
+}

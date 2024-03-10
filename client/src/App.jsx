@@ -11,7 +11,7 @@ const Layout=()=>{
     <div className="app">
       <Navbar/>
       <Outlet/>
-      <Footer/>
+ 
     </div>
   )
 }
