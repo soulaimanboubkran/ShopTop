@@ -17,30 +17,35 @@ const Product = () => {
   const imgSrc = data?.attributes?.[selectedImg]?.data?.attributes?.url;
 
   return (
-    <div className="flex flex-col md:flex-row items-start md:items-center gap-8 p-4 md:p-8">
+    <section className="flex justify-center">
+    <div className="flex max-w-[2000px] flex-col md:flex-row items-start md:items-center gap-8 p-4 md:p-8">
+    
       {loading ? (
         "Loading..."
       ) : (
         <>
-          <div className="flex flex-col md:flex-row items-start md:items-center gap-8">
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 max-w-6xl mx-auto py-8 px-4 md:px-0">
+         
+            <div className="grid grid-cols-2 md:grid-cols-1  gap-4">
               <img
                 src={import.meta.env.VITE_API_UP_URL + data?.attributes?.img?.data?.attributes?.url}
                 alt=""
-                className="w-full md:w-1/2 h-48 md:h-auto object-cover cursor-pointer mb-4 md:mb-0"
-                onClick={(e) => setSelectedImg("img")}
+                className="w-full h-auto object-cover rounded-lg cursor-pointer transition-all hover:scale-105"                onClick={(e) => setSelectedImg("img")}
               />
               <img
                 src={import.meta.env.VITE_API_UP_URL + data?.attributes?.img2?.data?.attributes?.url}
                 alt=""
-                className="w-full md:w-1/2 h-48 md:h-auto object-cover cursor-pointer"
-                onClick={(e) => setSelectedImg("img2")}
+                className="w-full h-auto object-cover rounded-lg cursor-pointer transition-all hover:scale-105"
+                                onClick={(e) => setSelectedImg("img2")}
               />
-            </div>
-            <div className="flex-grow flex justify-center md:justify-start mt-4 md:mt-0">
-              <img src={import.meta.env.VITE_API_UP_URL + imgSrc} alt="" className="w-full md:max-h-96 object-cover" />
-            </div>
+                           
+                            </div>
+                            <div className=" md:w-[600px] md:h-[800px] overflow-hidden rounded-lg">
+          <img src={import.meta.env.VITE_API_UP_URL + imgSrc} alt=""   className="w-full h-auto object-contain"/>
           </div>
+            </div>
+           
+        
           <div className="flex flex-col gap-4 flex-grow">
             <h1 className="text-2xl md:text-3xl font-bold">{data?.attributes?.title}</h1>
             <span className="text-lg md:text-xl font-semibold text-blue-500">{data?.attributes?.price}</span>
@@ -61,7 +66,7 @@ const Product = () => {
               </button>
             </div>
             <button
-              className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md"
+              className="flex items-center justify-center  gap-2 px-4 py-2 bg-blue-500 text-white font-semibold rounded-md"
               onClick={() =>
                 dispatch(
                   addTocart({
@@ -105,7 +110,7 @@ const Product = () => {
           </div>
         </>
       )}
-    </div>
+    </div></section>
   );
 };
 

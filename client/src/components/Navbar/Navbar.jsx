@@ -51,7 +51,7 @@ const Navbar = () => {
     <Link className="text-sm font-semibold leading-6 text-gray-900" to="/products/1">Women</Link>
    
     <Link className="text-sm font-semibold leading-6 text-gray-900" to="/products/2">Men</Link>
- 
+    <Link className="text-sm font-semibold leading-6 text-gray-900" to="/products/6">Best selling</Link>
   </Popover.Group>
   <div className="hidden lg:flex lg:flex-1 lg:justify-end">
   <div onClick={()=>setOpen(!open)} >
