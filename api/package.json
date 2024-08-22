@@ -9,7 +9,6 @@
     "build": "strapi build",
     "strapi": "strapi"
   },
-  
   "dependencies": {
     "@strapi/plugin-cloud": "4.15.5",
     "@strapi/plugin-i18n": "4.15.5",
@@ -19,6 +18,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-router-dom": "5.3.4",
+    "sqlite3": "^5.1.7",
     "stripe": "^14.7.0",
     "styled-components": "5.3.3"
   },
