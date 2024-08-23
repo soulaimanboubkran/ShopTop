@@ -18,6 +18,7 @@ module.exports = createCoreController("api::order.order",({strapi})=>({
                             currency:"usd",
                             product_data:{
                                 name:item.title,
+                                image: item.img,
                             },
                             unit_amount:Math.round(item.price*100),
         
