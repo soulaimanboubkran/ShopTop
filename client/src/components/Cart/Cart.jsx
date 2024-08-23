@@ -61,7 +61,8 @@ total += item.quantity * item.price;
         <span>SUBTOTAL</span>
         <span>${totlaPrice()}</span>
       </div>
-      <button onClick={handlePayment}>{loading ? "loading": "PROCEED TO CHECKOUT"}</button>
+      <button onClick={handlePayment}>{loading ? <span className="loading loading-spinner loading-md"></span>
+: "PROCEED TO CHECKOUT"}</button>
       <span className="reset"  onClick={()=>dispatch(resetCart())}>
         Reset Cart
       </span>
